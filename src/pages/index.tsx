@@ -3,7 +3,6 @@ import { Input } from "@/components/Home/Input";
 import React, { useState } from "react";
 import { PencilSimple } from "@phosphor-icons/react";
 import { gray } from "tailwindcss/colors";
-import { motion, useMotionValue, useTransform, stagger } from "framer-motion";
 import { KanbanLists } from "../components/Home/KanbanLists";
 
 const Home = () => {
@@ -23,11 +22,11 @@ const Home = () => {
             <PencilSimple size={28} weight="bold" color={gray[400]} />
           </button>
         </div>
-        <div className="w-16 h-16 rounded-full bg-gray-500"></div>
+        <div className="w-16 h-16 rounded-full bg-gray-500 hidden sm:block"></div>
       </section>
       <form
         onSubmit={handleSubmit}
-        className="w-full lg:flex-row lg:items-stretch flex flex-col-reverse gap-8"
+        className="w-full lg:h-14 lg:flex-row lg:items-stretch flex flex-col-reverse gap-8"
       >
         <FilterButton />
         <Input value={value} onChange={(e) => setValue(e!.target.value)} />

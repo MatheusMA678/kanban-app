@@ -1,43 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import {
-  Cards,
-  Gear,
-  Users,
-  FileText,
-  MagnifyingGlass,
-} from "@phosphor-icons/react";
 import { usePathname } from "next/navigation";
 
 import Logo from "../../public/images/logo.svg";
-
-const navbarLinks = [
-  { text: "Boards", href: "/", icon: <Cards size={28} weight={"bold"} /> },
-  {
-    text: "Equipes",
-    href: "/equipes",
-    icon: <Users size={28} weight={"bold"} />,
-  },
-  {
-    text: "Relatórios",
-    href: "/relatorios",
-    icon: <FileText size={28} weight={"bold"} />,
-  },
-  {
-    text: "Ajustes",
-    href: "/ajustes",
-    icon: <Gear size={28} weight={"bold"} />,
-  },
-];
+import { navbarLinks } from "@/data";
 
 const Sidebar = () => {
   const path = usePathname();
 
   return (
-    <section className="flex flex-col gap-16 p-8">
-      <Image src={Logo} alt="Kanban Logo" />
-      <nav>
+    <section className="flex items-center sm:items-start justify-between sm:justify-start sm:flex-col sm:gap-16 px-4 sm:p-8">
+      <Image src={Logo} alt="Kanban Logo" className="sm:h-16 h-10" />
+      <nav className="sm:block hidden">
         <ul className="flex flex-col gap-8">
           {navbarLinks.map((link) => (
             <li key={link.text}>
@@ -56,6 +31,7 @@ const Sidebar = () => {
           ))}
         </ul>
       </nav>
+      <div className="w-10 h-10 rounded-full bg-gray-500 sm:hidden" />
     </section>
   );
 };

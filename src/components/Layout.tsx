@@ -3,6 +3,7 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import { Inter } from "next/font/google";
 import { motion } from "framer-motion";
+import { BottomNavbar } from "./BottomNavbar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,20 +38,21 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           content="Kanban App using NextJS + Prisma + TailwindCSS."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon" />
       </Head>
       <div
-        className={`${inter.className} grid grid-cols-[15rem_auto] h-screen bg-primary overflow-hidden`}
+        className={`${inter.className} grid sm:grid-cols-[15rem_auto] grid-rows-[5rem_auto] sm:grid-rows-1 h-screen bg-primary overflow-hidden`}
       >
         <Sidebar />
         <motion.div
           initial="initial"
           animate="animate"
           variants={variants}
-          className="bg-[#FBFAFF] rounded-tl-3xl mt-1 p-14 overflow-y-auto"
+          className="bg-[#FBFAFF] rounded-t-3xl sm:rounded-tl-3xl sm:rounded-tr-none sm:mt-1 p-14 pb-24 md:pb-14 overflow-y-auto"
         >
           {children}
         </motion.div>
+        <BottomNavbar />
       </div>
     </>
   );
