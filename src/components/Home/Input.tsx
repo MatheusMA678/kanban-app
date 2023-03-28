@@ -4,11 +4,7 @@ import { gray } from "tailwindcss/colors";
 
 interface InputProps {
   value: any;
-  onChange: (
-    e?:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Input: React.FC<InputProps> = ({ value, onChange }) => {

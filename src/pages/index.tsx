@@ -3,14 +3,26 @@ import { Input } from "@/components/Home/Input";
 import React, { useState } from "react";
 import { PencilSimple } from "@phosphor-icons/react";
 import { gray } from "tailwindcss/colors";
-import { KanbanLists } from "../components/Home/KanbanLists";
+import { TodoList } from "@/components/Home/KanbanLists/TodoList";
+import { columns } from "@/data";
 
 const Home = () => {
   const [value, setValue] = useState("");
+  const [formValue, setFormValue] = useState("");
+
+  const columnsFiltered = columns.map((col) => {
+    return col.cards.filter((item) => {
+      return item.title.toLowerCase().includes(formValue.toLowerCase());
+    });
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(value);
+    setFormValue(value);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
   };
 
   return (
@@ -29,11 +41,13 @@ const Home = () => {
         className="w-full lg:h-14 lg:flex-row lg:items-stretch flex flex-col-reverse gap-8"
       >
         <FilterButton />
-        <Input value={value} onChange={(e) => setValue(e!.target.value)} />
+        <Input value={value} onChange={handleChange} />
       </form>
-      <KanbanLists />
+      <TodoList data={columns} />
     </section>
   );
 };
 
 export default Home;
+
+//  data={formValue === "" ? columns : cardsFiltered}

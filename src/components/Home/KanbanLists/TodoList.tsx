@@ -1,51 +1,45 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { TodoProps } from "@/@types/TodoProps";
+import { ColumnsType } from "@/@types/TodoProps";
+import { Card } from "./Card";
+import { DropTargetOptions, useDrop } from "react-dnd";
 
 interface TodoListProps {
-  title: string;
-  data: Array<TodoProps>;
+  data: Array<ColumnsType>;
 }
 
-export const TodoList: React.FC<TodoListProps> = ({ data, title }) => {
+export const TodoList = ({ data }: TodoListProps) => {
+  const [{ isOver }, drop] = useDrop({
+    accept: "card",
+    drop: (item: DropTargetOptions) => addCardToList(item.id),
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+  });
+
+  const addCardToList = (id: string) => {
+    console.log(id);
+  };
+
   return (
-    <motion.div className="flex flex-col gap-8">
-      <h2 className="text-xl font-bold">{title}</h2>
-      <motion.div className="flex flex-col gap-4">
-        {data.map((card, i) => (
-          <motion.div
-            key={card.id}
-            initial={{
-              opacity: 0,
-              y: 20,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 1,
-              delay: i * 0.5,
-            }}
-            className="w-full h-40 rounded-lg bg-white shadow-lg p-6 flex flex-col justify-between"
-          >
-            <h3 className="font-bold text-sm">{card.title}</h3>
-            <p className="text-sm text-gray-600 justify-self-start overflow-hidden">
-              {card.desc}
-            </p>
-            <div className="flex gap-2 items-center">
-              {card.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="bg-primary/20 font-bold text-xs w-fit rounded-lg px-2 py-1 text-primary"
-                >
-                  {tag}
-                </span>
+    <section className="grid lg:grid-cols-3 gap-12">
+      {data.map((col) => {
+        return (
+          <div className="flex flex-col gap-8" key={col.id}>
+            <h2 className="text-xl font-bold">{col.title}</h2>
+            <div
+              className="grid md:grid-cols-2 lg:flex lg:flex-col gap-4"
+              ref={drop}
+            >
+              {col.cards.map((card) => (
+                <Card card={card} />
               ))}
             </div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </motion.div>
+          </div>
+        );
+      })}
+    </section>
   );
 };
+
+// { data }: TodoListProps
