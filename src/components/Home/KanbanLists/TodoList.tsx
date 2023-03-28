@@ -31,8 +31,8 @@ export const TodoList = ({ data }: TodoListProps) => {
               className="grid md:grid-cols-2 lg:flex lg:flex-col gap-4"
               ref={drop}
             >
-              {col.cards.map((card) => (
-                <Card card={card} />
+              {col.cards.map((card, index) => (
+                <Card key={index} card={card} />
               ))}
             </div>
           </div>
